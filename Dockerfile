@@ -1,0 +1,13 @@
+FROM ovhcom/ai-training-pytorch:1.8.1
+LABEL maintainer="datalab-mi"
+
+RUN apt update -y && \
+    apt install -y bash \
+                   build-essential \
+                   g++ && \
+    rm -rf /var/lib/apt/lists
+
+WORKDIR /workspace
+COPY requirements.txt requirements.txt
+COPY workspace/* ./
+RUN pip install --no-cache-dir -r requirements.txt
