@@ -5,6 +5,7 @@ RUN apt update -y && \
     apt install -y bash \
                    build-essential \
                    g++ && \
+		   ffmpeg libsm6 libxext6
     rm -rf /var/lib/apt/lists
 
 WORKDIR /workspace
