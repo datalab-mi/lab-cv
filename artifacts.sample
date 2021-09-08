@@ -1,3 +1,0 @@
-export VERSION := v0.1
-export NB_GPUS := 0
-export NB_CPUS := 1
