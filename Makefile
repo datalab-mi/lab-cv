@@ -1,6 +1,6 @@
 export IMAGE_NAME=lab-cv
 export APP_PATH := $(shell pwd)
-export VERSION := v0.1.1
+export VERSION := v0.1.2
 export USER := $(shell whoami)
 export NB_GPUS := 2
 export NB_CPUS := 0 # this value is ignored if NB_GPUS is specified.
