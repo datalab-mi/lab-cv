@@ -8,6 +8,7 @@ RUN apt update -y && \
 		   ffmpeg libsm6 libxext6 && \
     rm -rf /var/lib/apt/lists
 
+RUN mkdir /workspace && chown -R 42420:42420 /workspace
 WORKDIR /workspace
 COPY requirements.txt requirements.txt
 COPY workspace/* ./

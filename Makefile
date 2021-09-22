@@ -1,4 +1,5 @@
 export IMAGE_NAME=lab-cv
+export PROJECT_NAME=iafoule
 export APP_PATH := $(shell pwd)
 export VERSION := v0.1.2
 export USER := $(shell whoami)
@@ -20,9 +21,9 @@ deploy-job:
 		--cpu ${NB_CPUS} \
 		--name ${IMAGE_NAME}-${USER} \
 		--label user=${USER}\
-		--volume lab-cv-data@${REGION}:/workspace/data:rw \
+		--volume lab-cv-data-${PROJECT_NAME}@${REGION}:/workspace/data:rw \
 		--volume lab-cv-notebook@${REGION}:/workspace/notebook:rw \
-		--volume lab-cv-code@${REGION}:/workspace/code:rw \
+		--volume lab-cv-code-${PROJECT_NAME}@${REGION}:/workspace/code:rw \
 		--output json \
 		ghcr.io/datalab-mi/${IMAGE_NAME}:${VERSION} > job.json \
 		$(command)
