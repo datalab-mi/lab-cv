@@ -21,9 +21,10 @@ deploy-job:
 		--cpu ${NB_CPUS} \
 		--name ${IMAGE_NAME}-${USER} \
 		--label user=${USER}\
-		--volume lab-cv-data-${PROJECT_NAME}@${REGION}:/workspace/data:rw \
-		--volume lab-cv-notebook@${REGION}:/workspace/notebook:rw \
-		--volume lab-cv-code-${PROJECT_NAME}@${REGION}:/workspace/code:rw \
+		--volume lab-cv-${PROJECT_NAME}-data@${REGION}:/workspace/data:rw \
+		--volume lab-cv-${PROJECT_NAME}-notebook@${REGION}:/workspace/notebook:rw \
+		--volume lab-cv-${PROJECT_NAME}-code@${REGION}:/workspace/code:rw \
+		--volume share@${REGION}:/workspace/share:rw \
 		--output json \
 		ghcr.io/datalab-mi/${IMAGE_NAME}:${VERSION} > job.json \
 		$(command)
