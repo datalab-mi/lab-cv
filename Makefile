@@ -29,6 +29,10 @@ deploy-job:
 		ghcr.io/datalab-mi/${IMAGE_NAME}:${VERSION} > job.json \
 		$(command)
 
+#usage: make stop-job JOB=xxxxx
+stop-job:
+	ovhai job stop $(JOB)
+
 list-job:
 	ovhai job list
 
