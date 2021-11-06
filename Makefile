@@ -19,7 +19,7 @@ deploy-job:
 	ovhai job run \
 		--gpu ${NB_GPUS} \
 		--cpu ${NB_CPUS} \
-		--name ${IMAGE_NAME}-${USER} \
+		--name ${IMAGE_NAME}-${USER}-${NB_GPUS}GPU-${NB_CPUS}CPU \
 		--label user=${USER}\
 		--volume lab-cv-${PROJECT_NAME}-data@${REGION}:/workspace/data:rw \
 		--volume lab-cv-${PROJECT_NAME}-notebook@${REGION}:/workspace/notebook:rw \
