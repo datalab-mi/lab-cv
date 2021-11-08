@@ -1,3 +1,4 @@
 artifacts
 *.pyc
+.DS_STORE
 *job*.json
