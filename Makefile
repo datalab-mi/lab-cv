@@ -3,8 +3,8 @@ export PROJECT_NAME=iafoule
 export APP_PATH := $(shell pwd)
 export VERSION := v0.1.2
 export USER := $(shell whoami)
-export NB_GPUS := 2
-export NB_CPUS := 0 # this value is ignored if NB_GPUS is specified.
+export NB_GPUS := 0
+export NB_CPUS := 1 # this value is ignored if NB_GPUS is specified.
 export REGION := gra
 dummy	:= $(shell touch artifacts)
 include ./artifacts
@@ -19,12 +19,11 @@ deploy-job:
 	ovhai job run \
 		--gpu ${NB_GPUS} \
 		--cpu ${NB_CPUS} \
-		--name ${IMAGE_NAME}-${USER}-${NB_GPUS}GPU-${NB_CPUS}CPU \
+		--name ${PROJECT_NAME}-${USER}-${NB_GPUS}GPU-${NB_CPUS}CPU \
 		--label user=${USER}\
-		--volume lab-cv-${PROJECT_NAME}-data@${REGION}:/workspace/data:rw \
-		--volume lab-cv-${PROJECT_NAME}-notebook@${REGION}:/workspace/notebook:rw \
-		--volume lab-cv-${PROJECT_NAME}-code@${REGION}:/workspace/code:rw \
-		--volume share@${REGION}:/workspace/share:rw \
+		--volume ${PROJECT_NAME}-home@${REGION}/jourdanfa:/home/jourdanfa:rw \
+		--volume ${PROJECT_NAME}-home@${REGION}:/home:ro \
+		--volume share@${REGION}:/workspace/share:ro \
 		--output json \
 		ghcr.io/datalab-mi/${IMAGE_NAME}:${VERSION} > job.json \
 		$(command)
