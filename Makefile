@@ -21,7 +21,7 @@ deploy-job:
 		--cpu ${NB_CPUS} \
 		--name ${PROJECT_NAME}-${USER}-${NB_GPUS}GPU-${NB_CPUS}CPU \
 		--label user=${USER}\
-		--volume ${PROJECT_NAME}-home@${REGION}/jourdanfa:/home/jourdanfa:rw \
+		--volume ${PROJECT_NAME}-home@${REGION}/${USER}:/home/${USER}:rw \
 		--volume ${PROJECT_NAME}-home@${REGION}:/home:ro \
 		--volume share@${REGION}:/workspace/share:ro \
 		--output json \
