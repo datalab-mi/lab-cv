@@ -8,8 +8,8 @@ RUN apt update -y && \
 		   ffmpeg libsm6 libxext6 && \
     rm -rf /var/lib/apt/lists
 
-RUN mkdir /home && chown -R 42420:42420 /home
-WORKDIR /home
+RUN mkdir /workspace && chown -R 42420:42420 /workspace
+WORKDIR /workspace
 COPY requirements.txt requirements.txt
-COPY home/* ./
+COPY workspace/* ./
 RUN pip install --no-cache-dir -r requirements.txt
