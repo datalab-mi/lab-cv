@@ -6,6 +6,7 @@ export USER := $(shell whoami)
 export NB_GPUS := 2
 export NB_CPUS := 0 # this value is ignored if NB_GPUS is specified.
 export REGION := gra
+export PROJECT_DATA_RIGHTS := ro
 dummy	:= $(shell touch artifacts)
 include ./artifacts
 # build locally the docker image
@@ -24,7 +25,7 @@ deploy-job:
 		--volume ${PROJECT_NAME}-home@${REGION}/${USER}:/workspace/home/${USER}:rw \
 		--volume ${PROJECT_NAME}-home@${REGION}:/workspace/home:ro \
 		--volume cclabeler-data@${REGION}:/workspace/cclabeler:ro \
-		--volume ${PROJECT_NAME}-data@${REGION}:/workspace/data:ro \
+		--volume ${PROJECT_NAME}-data@${REGION}:/workspace/data:${PROJECT_DATA_RIGHTS} \
 		--volume lab-cv-${PROJECT_NAME}-notebook@${REGION}:/workspace/notebook:ro \
 		--volume lab-cv-${PROJECT_NAME}-code@${REGION}:/workspace/code:ro \
 		--volume share@${REGION}:/workspace/share:ro \
