@@ -7,6 +7,8 @@ export NB_GPUS := 2
 export NB_CPUS := 0 # this value is ignored if NB_GPUS is specified.
 export REGION := gra
 export PROJECT_DATA_RIGHTS := ro
+export JOB=$(cat job.json | jq '.id')
+
 dummy	:= $(shell touch artifacts)
 include ./artifacts
 # build locally the docker image
@@ -32,8 +34,9 @@ deploy-job:
 		--output json \
 		ghcr.io/datalab-mi/${IMAGE_NAME}:${VERSION} > job.json \
 		$(command)
+	@cat job.json | jq '.status.jobUrl'
 
-#usage: make stop-job JOB=xxxxx
+#usage: for a specific job do 'make stop-job JOB=xxxxx' else read the last file job.json
 stop-job:
 	ovhai job stop $(JOB)
 
