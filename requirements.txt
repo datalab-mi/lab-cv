@@ -14,3 +14,4 @@ scikit-learn==1.0.2
 easydict==1.9
 tensorboardX==2.4.1
 onnx==1.11.0
+openpyxl==3.0.9
