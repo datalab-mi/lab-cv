@@ -24,7 +24,7 @@ deploy-job:
 		--cpu ${NB_CPUS} \
 		--name ${PROJECT_NAME}-${USER}-${NB_GPUS}GPU-${NB_CPUS}CPU \
 		--label user=${USER}\
-		--volume ${PROJECT_NAME}-home@${REGION}/${USER}:/workspace/home/${USER}:rw \
+		--volume ${PROJECT_NAME}-home@${REGION}/${USER}:/workspace/home/${USER}:rwd \
 		--volume ${PROJECT_NAME}-home@${REGION}:/workspace/home:ro \
 		--volume cclabeler-data@${REGION}:/workspace/cclabeler:ro \
 		--volume ${PROJECT_NAME}-data@${REGION}:/workspace/data:${PROJECT_DATA_RIGHTS} \
