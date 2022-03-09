@@ -6,6 +6,9 @@ export USER := $(shell whoami)
 export NB_GPUS := 2
 export NB_CPUS := 0 # this value is ignored if NB_GPUS is specified.
 export REGION := gra
+export PROJECT_DATA_RIGHTS := ro
+export JOB=$(shell cat job.json | jq '.id')
+
 dummy	:= $(shell touch artifacts)
 include ./artifacts
 # build locally the docker image
@@ -19,17 +22,21 @@ deploy-job:
 	ovhai job run \
 		--gpu ${NB_GPUS} \
 		--cpu ${NB_CPUS} \
-		--name ${IMAGE_NAME}-${USER}-${NB_GPUS}GPU-${NB_CPUS}CPU \
+		--name ${PROJECT_NAME}-${USER}-${NB_GPUS}GPU-${NB_CPUS}CPU \
 		--label user=${USER}\
-		--volume lab-cv-${PROJECT_NAME}-data@${REGION}:/workspace/data:rw \
-		--volume lab-cv-${PROJECT_NAME}-notebook@${REGION}:/workspace/notebook:rw \
-		--volume lab-cv-${PROJECT_NAME}-code@${REGION}:/workspace/code:rw \
-		--volume share@${REGION}:/workspace/share:rw \
+		--volume ${PROJECT_NAME}-home@${REGION}/${USER}:/workspace/home/${USER}:rwd \
+		--volume ${PROJECT_NAME}-home@${REGION}:/workspace/home:ro \
+		--volume cclabeler-data@${REGION}:/workspace/cclabeler:ro \
+		--volume ${PROJECT_NAME}-data@${REGION}:/workspace/data:${PROJECT_DATA_RIGHTS} \
+		--volume lab-cv-${PROJECT_NAME}-notebook@${REGION}:/workspace/notebook:ro \
+		--volume lab-cv-${PROJECT_NAME}-code@${REGION}:/workspace/code:ro \
+		--volume share@${REGION}:/workspace/share:ro \
 		--output json \
 		ghcr.io/datalab-mi/${IMAGE_NAME}:${VERSION} > job.json \
 		$(command)
+	@cat job.json | jq '.status.jobUrl'
 
-#usage: make stop-job JOB=xxxxx
+#usage: for a specific job do 'make stop-job JOB=xxxxx' else read the last file job.json
 stop-job:
 	ovhai job stop $(JOB)
 
