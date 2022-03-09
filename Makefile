@@ -7,7 +7,7 @@ export NB_GPUS := 2
 export NB_CPUS := 0 # this value is ignored if NB_GPUS is specified.
 export REGION := gra
 export PROJECT_DATA_RIGHTS := ro
-export JOB=$(cat job.json | jq '.id')
+export JOB=$(shell cat job.json | jq '.id')
 
 dummy	:= $(shell touch artifacts)
 include ./artifacts
