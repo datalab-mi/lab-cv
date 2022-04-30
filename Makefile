@@ -24,12 +24,10 @@ deploy-job:
 		--cpu ${NB_CPUS} \
 		--name ${PROJECT_NAME}-${USER}-${NB_GPUS}GPU-${NB_CPUS}CPU \
 		--label user=${USER}\
-		--volume ${PROJECT_NAME}-home@${REGION}/${USER}:/workspace/home/${USER}:rw \
+		--volume ${PROJECT_NAME}-home@${REGION}/${USER}:/workspace/home/${USER}:rwd \
 		--volume ${PROJECT_NAME}-home@${REGION}:/workspace/home:ro \
 		--volume cclabeler-data@${REGION}:/workspace/cclabeler:ro \
 		--volume ${PROJECT_NAME}-data@${REGION}:/workspace/data:${PROJECT_DATA_RIGHTS} \
-		--volume lab-cv-${PROJECT_NAME}-notebook@${REGION}:/workspace/notebook:ro \
-		--volume lab-cv-${PROJECT_NAME}-code@${REGION}:/workspace/code:ro \
 		--volume share@${REGION}:/workspace/share:ro \
 		--output json \
 		ghcr.io/datalab-mi/${IMAGE_NAME}:${VERSION} > job.json \
