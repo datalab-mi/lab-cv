@@ -25,8 +25,10 @@ deploy-job:
 		--name ${PROJECT_NAME}-${USER}-${NB_GPUS}GPU-${NB_CPUS}CPU \
 		--label user=${USER}\
 		--volume ${PROJECT_NAME}-home@${REGION}/${USER}:/workspace/home/${USER}:rwd \
-		--volume ${PROJECT_NAME}-home@${REGION}:/workspace/home:ro \
+		--volume ${PROJECT_NAME}-home@${REGION}/journevi:/workspace/home/journevi:ro \
+		--volume ${PROJECT_NAME}-home@${REGION}/gameiroth:/workspace/home/gameiroth:ro \
 		--volume cclabeler-data@${REGION}:/workspace/cclabeler:ro \
+		--volume gcc-data@${REGION}:/workspace/gcc-data:ro \
 		--volume ${PROJECT_NAME}-data@${REGION}:/workspace/data:${PROJECT_DATA_RIGHTS} \
 		--volume share@${REGION}:/workspace/share:ro \
 		--output json \
